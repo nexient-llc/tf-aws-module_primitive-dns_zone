@@ -1,4 +1,4 @@
-module github.com/nexient-llc/tf-aws-wrapper_module-dns_zone.git
+module github.com/nexient-llc/tf-aws-wrapper_module-dns_zone
 
 go 1.20
 
