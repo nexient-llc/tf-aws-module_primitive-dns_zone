@@ -10,6 +10,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+# This module is used to add metadata tags (resource_name) to all the resources
+module "resource_names" {
+  source = "git::https://github.com/nexient-llc/tf-module-resource_name.git?ref=1.0.0"
+
+  for_each = local.resource_names_map
+
+  region                  = join("", split("-", each.value.region))
+  class_env               = var.environment
+  cloud_resource_type     = each.value.name
+  instance_env            = var.environment_number
+  instance_resource       = var.resource_number
+  maximum_length          = each.value.max_length
+  logical_product_family  = var.logical_product_family
+  logical_product_service = var.logical_product_service
+}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.5.1"
@@ -27,16 +43,6 @@ module "vpc" {
 module "dns_zone" {
   source = "../.."
 
-  naming_prefix      = var.naming_prefix
-  environment        = var.environment
-  environment_number = var.environment_number
-  resource_number    = var.resource_number
-  region             = var.region
-  resource_names_map = var.resource_names_map
-  zone_name          = var.zone_name
-  comment            = var.comment
-  force_destroy      = var.force_destroy
-  vpc_id             = module.vpc.vpc_id
-
-  tags = var.tags
+  zones = local.zones
+  tags  = var.tags
 }

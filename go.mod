@@ -1,4 +1,4 @@
-module github.com/nexient-llc/tf-aws-collection_module-dns_zone
+module github.com/nexient-llc/tf-aws-module_primitive-dns_zone
 
 go 1.20
 

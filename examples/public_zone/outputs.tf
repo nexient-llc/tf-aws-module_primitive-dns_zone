@@ -9,22 +9,27 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-output "zone_id" {
-  value = module.dns_zone.zone_id
+output "route53_zone_zone_ids" {
+  description = "Zone ID of Route53 zone"
+  value       = module.dns_zone.route53_zone_zone_ids
 }
 
-output "zone_arn" {
-  value = module.dns_zone.zone_arn
+output "route53_zone_zone_arns" {
+  description = "Zone ARN of Route53 zone"
+  value       = module.dns_zone.route53_zone_zone_arns
 }
 
-output "name_servers" {
-  value = module.dns_zone.name_servers
+output "route53_zone_name_servers" {
+  description = "Name servers of Route53 zone"
+  value       = module.dns_zone.route53_zone_name_servers
 }
 
-output "zone_name" {
-  value = var.zone_name
+output "route53_zone_names" {
+  description = "Name of Route53 zone"
+  value       = module.dns_zone.route53_zone_names
 }
 
-output "zone_resource_name" {
-  value = module.dns_zone.zone_resource_name
+output "route53_static_zone_names" {
+  description = "Name of Route53 zone created statically to avoid invalid count argument error when creating records and zones simmultaneously"
+  value       = module.dns_zone.route53_static_zone_names
 }
