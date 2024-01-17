@@ -42,21 +42,23 @@ variable "environment" {
 
 variable "environment_number" {
   description = "The environment count for the respective environment. Defaults to 000. Increments in value of 1"
+  type        = string
   default     = "000"
 }
 
 variable "resource_number" {
   description = "The resource count for the respective resource. Defaults to 000. Increments in value of 1"
+  type        = string
   default     = "000"
 }
 
 variable "region" {
   description = "AWS Region in which the infra needs to be provisioned"
+  type        = string
   default     = "us-east-2"
 }
 
 variable "logical_product_family" {
-  type        = string
   description = <<EOF
     (Required) Name of the product family for which the resource is created.
     Example: org_name, department_name.
@@ -67,12 +69,11 @@ variable "logical_product_family" {
     condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_family))
     error_message = "The variable must contain letters, numbers, -, _, and .."
   }
-
+  type    = string
   default = "launch"
 }
 
 variable "logical_product_service" {
-  type        = string
   description = <<EOF
     (Required) Name of the product service for which the resource is created.
     For example, backend, frontend, middleware etc.
@@ -83,7 +84,7 @@ variable "logical_product_service" {
     condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_service))
     error_message = "The variable must contain letters, numbers, -, _, and .."
   }
-
+  type    = string
   default = "network"
 }
 variable "zone_name" {
