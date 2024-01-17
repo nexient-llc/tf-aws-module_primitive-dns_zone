@@ -10,20 +10,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.5.1"
-
-  name                 = var.vpc_name
-  cidr                 = var.vpc_cidr
-  private_subnets      = var.private_subnets
-  azs                  = var.availability_zones
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-
-  tags = var.tags
-}
-
 module "dns_zone" {
   source = "../.."
 
@@ -36,7 +22,6 @@ module "dns_zone" {
   zone_name          = var.zone_name
   comment            = var.comment
   force_destroy      = var.force_destroy
-  vpc_id             = module.vpc.vpc_id
 
   tags = var.tags
 }

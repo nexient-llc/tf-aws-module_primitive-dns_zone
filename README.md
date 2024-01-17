@@ -1,11 +1,11 @@
-# tf-aws-wrapper_module-dns_zone
+# tf-aws-collection_module-dns_zone
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 ## Overview
 
-This terraform module creates a Route53 Hosted Zone in AWS. This module can be used to provision both `private` and `public` hosted zones. A non empty `vpc_id` input variable indicates that the zone is private else it will be provisioned as public. This module provisions 1 Zone at a time. In order to provision multiple zones, you may need to create a wrapper and loop through this module.
+This terraform module creates a Route53 Hosted Zone in AWS. This module can be used to provision both `private` and `public` hosted zones. A non empty `vpc_id` input variable indicates that the zone is private else it will be provisioned as public. This module provisions 1 Zone at a time. In order to provision multiple zones, you may need to create a collection and loop through this module.
 
 Note: This module hasn't yet been tested to provision public hosted zones.
 
@@ -129,10 +129,10 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
+| Name                                                                      | Version            |
+| ------------------------------------------------------------------------- | ------------------ |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0, <= 1.5.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.28.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws)                   | ~> 5.0             |
 
 ## Providers
 
@@ -140,10 +140,10 @@ No providers.
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | git::https://github.com/nexient-llc/tf-module-resource_name.git | 0.1.0 |
-| <a name="module_zone"></a> [zone](#module\_zone) | terraform-aws-modules/route53/aws//modules/zones | ~> 2.10.2 |
+| Name                                                                             | Source                                                          | Version   |
+| -------------------------------------------------------------------------------- | --------------------------------------------------------------- | --------- |
+| <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | git::https://github.com/nexient-llc/tf-module-resource_name.git | 1.0.0     |
+| <a name="module_zone"></a> [zone](#module\_zone)                                 | terraform-aws-modules/route53/aws//modules/zones                | ~> 2.11.0 |
 
 ## Resources
 
@@ -151,27 +151,29 @@ No resources.
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_naming_prefix"></a> [naming\_prefix](#input\_naming\_prefix) | Prefix for the provisioned resources. | `string` | `"platform"` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment in which the resource should be provisioned like dev, qa, prod etc. | `string` | `"dev"` | no |
-| <a name="input_environment_number"></a> [environment\_number](#input\_environment\_number) | The environment count for the respective environment. Defaults to 000. Increments in value of 1 | `string` | `"000"` | no |
-| <a name="input_resource_number"></a> [resource\_number](#input\_resource\_number) | The resource count for the respective resource. Defaults to 000. Increments in value of 1 | `string` | `"000"` | no |
-| <a name="input_region"></a> [region](#input\_region) | AWS Region in which the infra needs to be provisioned | `string` | `"us-east-2"` | no |
-| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | A map of key to resource\_name that will be used by cloudposse/label/null module to generate resource names | `map(string)` | <pre>{<br>  "dns_zone": "zone"<br>}</pre> | no |
-| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | Name of the Route53 Zone to be created | `string` | n/a | yes |
-| <a name="input_comment"></a> [comment](#input\_comment) | Comment to be associated with the Route53 Zone | `string` | `""` | no |
-| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | Boolean whether to be able to delete the DNS Zone | `bool` | `true` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID of the VPC for private Route53 Zone. | `string` | `""` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | A map of custom tags to be associated with the cache cluster | `map(string)` | `{}` | no |
+| Name                                                                                                        | Description                                                                                                                      | Type                                                                                                                                                   | Default                                                                                                                  | Required |
+| ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | :------: |
+| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map)                | A map of key to resource\_name that will be used by tf-module-resource\_name to generate resource names                          | <pre>map(object({<br>    name       = string<br>    max_length = optional(number, 60)<br>    region     = optional(string, "us-east-2")<br>  }))</pre> | <pre>{<br>  "dns_zone": {<br>    "max_length": 80,<br>    "name": "zone",<br>    "region": "us-east-2"<br>  }<br>}</pre> |    no    |
+| <a name="input_naming_prefix"></a> [naming\_prefix](#input\_naming\_prefix)                                 | Prefix for the provisioned resources.                                                                                            | `string`                                                                                                                                               | `"demo"`                                                                                                                 |    no    |
+| <a name="input_environment"></a> [environment](#input\_environment)                                         | Project environment                                                                                                              | `string`                                                                                                                                               | `"dev"`                                                                                                                  |    no    |
+| <a name="input_environment_number"></a> [environment\_number](#input\_environment\_number)                  | The environment count for the respective environment. Defaults to 000. Increments in value of 1                                  | `string`                                                                                                                                               | `"000"`                                                                                                                  |    no    |
+| <a name="input_resource_number"></a> [resource\_number](#input\_resource\_number)                           | The resource count for the respective resource. Defaults to 000. Increments in value of 1                                        | `string`                                                                                                                                               | `"000"`                                                                                                                  |    no    |
+| <a name="input_region"></a> [region](#input\_region)                                                        | AWS Region in which the infra needs to be provisioned                                                                            | `string`                                                                                                                                               | `"us-east-2"`                                                                                                            |    no    |
+| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family)    | (Required) Name of the product family for which the resource is created.<br>    Example: org\_name, department\_name.            | `string`                                                                                                                                               | `"launch"`                                                                                                               |    no    |
+| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | (Required) Name of the product service for which the resource is created.<br>    For example, backend, frontend, middleware etc. | `string`                                                                                                                                               | `"network"`                                                                                                              |    no    |
+| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name)                                             | Name of the Route53 Zone to be created                                                                                           | `string`                                                                                                                                               | n/a                                                                                                                      |   yes    |
+| <a name="input_comment"></a> [comment](#input\_comment)                                                     | Comment to be associated with the Route53 Zone                                                                                   | `string`                                                                                                                                               | `""`                                                                                                                     |    no    |
+| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy)                                 | Boolean whether to be able to delete the DNS Zone                                                                                | `bool`                                                                                                                                                 | `true`                                                                                                                   |    no    |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id)                                                      | The VPC ID of the VPC for private Route53 Zone.                                                                                  | `string`                                                                                                                                               | `""`                                                                                                                     |    no    |
+| <a name="input_tags"></a> [tags](#input\_tags)                                                              | A map of custom tags to be associated with the cache cluster                                                                     | `map(string)`                                                                                                                                          | `{}`                                                                                                                     |    no    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-2.0  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. |
-| <a name="output_zone_arn"></a> [zone\_arn](#output\_zone\_arn) | n/a |
-| <a name="output_name_servers"></a> [name\_servers](#output\_name\_servers) | n/a |
-| <a name="output_zone_name"></a> [zone\_name](#output\_zone\_name) | n/a |
-| <a name="output_zone_resource_name"></a> [zone\_resource\_name](#output\_zone\_resource\_name) | n/a |
+| Name                                                                                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id)                                    | Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-2.0  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. |
+| <a name="output_zone_arn"></a> [zone\_arn](#output\_zone\_arn)                                 | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| <a name="output_name_servers"></a> [name\_servers](#output\_name\_servers)                     | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| <a name="output_zone_name"></a> [zone\_name](#output\_zone\_name)                              | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| <a name="output_zone_resource_name"></a> [zone\_resource\_name](#output\_zone\_resource\_name) | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

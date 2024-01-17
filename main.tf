@@ -12,21 +12,23 @@
 
 # This module is used to add metadata tags (resource_name) to all the resources
 module "resource_names" {
-  source = "git::https://github.com/nexient-llc/tf-module-resource_name.git?ref=0.1.0"
+  source = "git::https://github.com/nexient-llc/tf-module-resource_name.git?ref=1.0.0"
 
   for_each = var.resource_names_map
 
-  logical_product_name = var.naming_prefix
-  region               = join("", split("-", var.region))
-  class_env            = var.environment
-  cloud_resource_type  = each.value
-  instance_env         = var.environment_number
-  instance_resource    = var.resource_number
+  region                  = join("", split("-", each.value.region))
+  class_env               = var.environment
+  cloud_resource_type     = each.value.name
+  instance_env            = var.environment_number
+  instance_resource       = var.resource_number
+  maximum_length          = each.value.max_length
+  logical_product_family  = var.logical_product_family
+  logical_product_service = var.logical_product_service
 }
 
 module "zone" {
   source  = "terraform-aws-modules/route53/aws//modules/zones"
-  version = "~> 2.10.2"
+  version = "~> 2.11.0"
 
   # The input variable for the parent module is plural `zones` but we are passing in a single zone
   zones = local.zone

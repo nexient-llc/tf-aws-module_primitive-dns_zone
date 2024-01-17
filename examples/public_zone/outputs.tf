@@ -9,14 +9,22 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+output "zone_id" {
+  value = module.dns_zone.zone_id
+}
 
-terraform {
-  required_version = ">= 1.5.0, <= 1.5.5"
+output "zone_arn" {
+  value = module.dns_zone.zone_arn
+}
 
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
+output "name_servers" {
+  value = module.dns_zone.name_servers
+}
+
+output "zone_name" {
+  value = var.zone_name
+}
+
+output "zone_resource_name" {
+  value = module.dns_zone.zone_resource_name
 }

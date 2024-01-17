@@ -74,6 +74,7 @@ variable "logical_product_family" {
 }
 
 variable "logical_product_service" {
+
   description = <<EOF
     (Required) Name of the product service for which the resource is created.
     For example, backend, frontend, middleware etc.
@@ -87,6 +88,8 @@ variable "logical_product_service" {
   type    = string
   default = "network"
 }
+
+# DNS Zone specific variables
 variable "zone_name" {
   description = "Name of the Route53 Zone to be created"
   type        = string
@@ -102,13 +105,6 @@ variable "force_destroy" {
   description = "Boolean whether to be able to delete the DNS Zone"
   type        = bool
   default     = true
-}
-
-### VPC related variables
-variable "vpc_id" {
-  description = "The VPC ID of the VPC for private Route53 Zone."
-  type        = string
-  default     = ""
 }
 
 variable "tags" {
