@@ -1,10 +1,10 @@
-module github.com/nexient-llc/tf-aws-wrapper_module-dns_zone.git
+module github.com/nexient-llc/tf-aws-collection_module-dns_zone
 
 go 1.20
 
 require (
 	github.com/gruntwork-io/terratest v0.43.12
-	github.com/nexient-llc/tf-caf-terratest-common v0.0.0-20230825182020-c6ffde8a1ec0
+	github.com/nexient-llc/lcaf-component-terratest-common v0.0.0-20240117163707-a1dfafae58b4
 	github.com/stretchr/testify v1.8.4
 )
 

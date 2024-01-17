@@ -5,8 +5,8 @@ import (
 
 	testimpl "github.com/nexient-llc/tf-aws-collection_module-dns_zone/tests/testimpl"
 
-	"github.com/nexient-llc/tf-caf-terratest-common/lib"
-	"github.com/nexient-llc/tf-caf-terratest-common/types"
+	"github.com/nexient-llc/lcaf-component-terratest-common/lib"
+	"github.com/nexient-llc/lcaf-component-terratest-common/types"
 )
 
 const (
