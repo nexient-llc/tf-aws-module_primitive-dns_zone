@@ -10,12 +10,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 output "route53_zone_zone_ids" {
-  description = "Zone ID of Route53 zone"
+  description = "Zone IDs of Route53 zone"
   value       = module.dns_zone.route53_zone_zone_ids
 }
 
 output "route53_zone_zone_arns" {
-  description = "Zone ARN of Route53 zone"
+  description = "Zone ARNs of Route53 zone"
   value       = module.dns_zone.route53_zone_zone_arns
 }
 
@@ -25,11 +25,11 @@ output "route53_zone_name_servers" {
 }
 
 output "route53_zone_names" {
-  description = "Name of Route53 zone"
+  description = "Names of Route53 zone"
   value       = module.dns_zone.route53_zone_names
 }
 
 output "route53_static_zone_names" {
-  description = "Name of Route53 zone created statically to avoid invalid count argument error when creating records and zones simmultaneously"
+  description = "Names of Route53 zone created statically to avoid invalid count argument error when creating records and zones simultaneously"
   value       = module.dns_zone.route53_static_zone_names
 }

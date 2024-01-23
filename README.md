@@ -175,10 +175,10 @@ Currently, the `encrypt at transit` is not supported in terraform. There is an o
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name                                                                      | Version            |
-| ------------------------------------------------------------------------- | ------------------ |
+| Name | Version |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0, <= 1.5.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws)                   | ~> 5.0             |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 
 ## Providers
 
@@ -186,8 +186,8 @@ No providers.
 
 ## Modules
 
-| Name                                             | Source                                           | Version   |
-| ------------------------------------------------ | ------------------------------------------------ | --------- |
+| Name | Source | Version |
+|------|--------|---------|
 | <a name="module_zone"></a> [zone](#module\_zone) | terraform-aws-modules/route53/aws//modules/zones | ~> 2.11.0 |
 
 ## Resources
@@ -196,19 +196,19 @@ No resources.
 
 ## Inputs
 
-| Name                                                 | Description                                                                       | Type                                                                                                                                                                                                                                                                                                                     | Default | Required |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | :------: |
-| <a name="input_zones"></a> [zones](#input\_zones)    | Map of Route53 zone parameters                                                    | <pre>map(object({<br>    domain_name   = string<br>    comment       = string<br>    force_destroy = optional(bool, false)<br>    tags          = optional(map(string))<br>    vpc = optional(list(object({<br>      vpc_id     = optional(string)<br>      vpc_region = optional(string)<br>    })), [])<br>  }))</pre> | `{}`    |    no    |
-| <a name="input_create"></a> [create](#input\_create) | Whether to create Route53 zone                                                    | `bool`                                                                                                                                                                                                                                                                                                                   | `true`  |    no    |
-| <a name="input_tags"></a> [tags](#input\_tags)       | Tags added to all zones. Will take precedence over tags from the 'zones' variable | `map(string)`                                                                                                                                                                                                                                                                                                            | `{}`    |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_zones"></a> [zones](#input\_zones) | Map of Route53 zone parameters | <pre>map(object({<br>    domain_name   = string<br>    comment       = string<br>    force_destroy = optional(bool, false)<br>    tags          = optional(map(string))<br>    vpc = optional(list(object({<br>      vpc_id     = optional(string)<br>      vpc_region = optional(string)<br>    })), [])<br>  }))</pre> | `{}` | no |
+| <a name="input_create"></a> [create](#input\_create) | Whether to create Route53 zone | `bool` | `true` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags added to all zones. Will take precedence over tags from the 'zones' variable | `map(string)` | `{}` | no |
 
 ## Outputs
 
-| Name                                                                                                                  | Description                                                                                                                   |
-| --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| <a name="output_route53_zone_zone_ids"></a> [route53\_zone\_zone\_ids](#output\_route53\_zone\_zone\_ids)             | Zone ID of Route53 zone                                                                                                       |
-| <a name="output_route53_zone_zone_arns"></a> [route53\_zone\_zone\_arns](#output\_route53\_zone\_zone\_arns)          | Zone ARN of Route53 zone                                                                                                      |
-| <a name="output_route53_zone_name_servers"></a> [route53\_zone\_name\_servers](#output\_route53\_zone\_name\_servers) | Name servers of Route53 zone                                                                                                  |
-| <a name="output_route53_zone_names"></a> [route53\_zone\_names](#output\_route53\_zone\_names)                        | Name of Route53 zone                                                                                                          |
-| <a name="output_route53_static_zone_names"></a> [route53\_static\_zone\_names](#output\_route53\_static\_zone\_names) | Name of Route53 zone created statically to avoid invalid count argument error when creating records and zones simmultaneously |
+| Name | Description |
+|------|-------------|
+| <a name="output_route53_zone_zone_ids"></a> [route53\_zone\_zone\_ids](#output\_route53\_zone\_zone\_ids) | Zone ID of Route53 zones |
+| <a name="output_route53_zone_zone_arns"></a> [route53\_zone\_zone\_arns](#output\_route53\_zone\_zone\_arns) | Zone ARNs of Route53 zone |
+| <a name="output_route53_zone_name_servers"></a> [route53\_zone\_name\_servers](#output\_route53\_zone\_name\_servers) | Name servers of Route53 zone |
+| <a name="output_route53_zone_names"></a> [route53\_zone\_names](#output\_route53\_zone\_names) | Names of Route53 zone |
+| <a name="output_route53_static_zone_names"></a> [route53\_static\_zone\_names](#output\_route53\_static\_zone\_names) | Names of Route53 zone created statically to avoid invalid count argument error when creating records and zones simmultaneously |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
