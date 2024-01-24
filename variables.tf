@@ -10,7 +10,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-# Variables required by the dnz zone module
+# Variables required by the DNS zone module
 variable "zones" {
   description = "Map of Route53 zone parameters"
   type = map(object({
