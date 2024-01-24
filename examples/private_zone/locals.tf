@@ -10,9 +10,9 @@ locals {
 
   # Merge the tags from the zones variable with the resource name tags. Merge the VPC ID and region with the Zones variable
   tags = {
-    for idx, v in var.zones : idx => {
+    for k, v in var.zones : k => {
       tags = merge(v.tags, {
-        resource_name = "${module.resource_names["dns_zone_${idx}"].standard}"
+        resource_name = "${module.resource_names["dns_zone_${k}"].standard}"
       })
       vpc = concat(v.vpc, [{
         vpc_id     = module.vpc.vpc_id
@@ -22,7 +22,7 @@ locals {
   }
 
   vpcs = {
-    for idx, v in var.zones : idx => {
+    for k, v in var.zones : k => {
       vpc = concat(v.vpc, [{
         vpc_id     = module.vpc.vpc_id
         vpc_region = var.region
@@ -31,12 +31,12 @@ locals {
   }
 
   zones = {
-    for idx, v in var.zones : idx => {
+    for k, v in var.zones : k => {
       domain_name   = v.domain_name
       comment       = v.comment
       force_destroy = v.force_destroy
-      tags          = local.tags[idx].tags
-      vpc           = local.vpcs[idx].vpc
+      tags          = local.tags[k].tags
+      vpc           = local.vpcs[k].vpc
     }
   }
 }
