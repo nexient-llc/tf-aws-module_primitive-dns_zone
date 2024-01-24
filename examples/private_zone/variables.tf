@@ -19,19 +19,7 @@ variable "resource_names_map" {
     region     = optional(string, "us-east-2")
   }))
 
-  default = {
-    dns_zone = {
-      name       = "zone"
-      max_length = 80
-      region     = "us-east-2"
-    }
-  }
-}
-
-variable "naming_prefix" {
-  description = "Prefix for the provisioned resources."
-  type        = string
-  default     = "demo"
+  default = {}
 }
 
 variable "environment" {
@@ -63,32 +51,61 @@ variable "logical_product_family" {
     (Required) Name of the product family for which the resource is created.
     Example: org_name, department_name.
   EOF
-  type        = string
   nullable    = false
 
   validation {
     condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_family))
     error_message = "The variable must contain letters, numbers, -, _, and .."
   }
-
+  type    = string
   default = "launch"
 }
 
 variable "logical_product_service" {
+
   description = <<EOF
     (Required) Name of the product service for which the resource is created.
     For example, backend, frontend, middleware etc.
   EOF
-  type        = string
   nullable    = false
 
   validation {
     condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_service))
     error_message = "The variable must contain letters, numbers, -, _, and .."
   }
-
+  type    = string
   default = "network"
 }
+
+# DNS Zone specific variables
+# Variables required by the dnz zone module
+variable "zones" {
+  description = "Map of Route53 zone parameters"
+  type = map(object({
+    domain_name   = string
+    comment       = string
+    force_destroy = optional(bool, false)
+    tags          = optional(map(string))
+    vpc = optional(list(object({
+      vpc_id     = optional(string)
+      vpc_region = optional(string)
+    })), [])
+  }))
+  default = {}
+}
+
+variable "create" {
+  description = "Whether to create Route53 zone"
+  type        = bool
+  default     = true
+}
+
+variable "tags" {
+  description = "Tags added to all zones. Will take precedence over tags from the 'zones' variable"
+  type        = map(string)
+  default     = {}
+}
+
 
 ## VPC related variables
 variable "vpc_name" {
@@ -111,27 +128,4 @@ variable "availability_zones" {
   description = "List of availability zones for the VPC"
   type        = list(string)
   default     = ["us-east-2a", "us-east-2b", "us-east-2c"]
-}
-
-variable "zone_name" {
-  description = "Name of the Route53 Zone to be created"
-  type        = string
-}
-
-variable "comment" {
-  description = "Comment to be associated with the Route53 Zone"
-  type        = string
-  default     = ""
-}
-
-variable "force_destroy" {
-  description = "Boolean whether to be able to delete the DNS Zone"
-  type        = bool
-  default     = true
-}
-
-variable "tags" {
-  description = "A map of custom tags to be associated with the cache cluster"
-  type        = map(string)
-  default     = {}
 }

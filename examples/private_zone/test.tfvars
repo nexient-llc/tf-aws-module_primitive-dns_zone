@@ -1,7 +1,13 @@
-naming_prefix = "demo_test"
-zone_name     = "demo-test302164.test.com"
-comment       = "Test to create a private hosted zone through terraform"
-force_destroy = true
-tags = {
-  "demoCostCenter" = "DemoValue"
+zones = {
+  "launch.nttdata.test-1p.com" = {
+    domain_name   = "launch.nttdata.test-1.com"
+    comment       = "Test to create a public hosted zone through terraform"
+    force_destroy = true
+    tags          = {}
+  },
+  "launch.nttdata.test-2o.com" = {
+    domain_name   = "launch.nttdata.test-2.com"
+    comment       = "Test to create a public hosted zone through terraform"
+    force_destroy = true
+  }
 }

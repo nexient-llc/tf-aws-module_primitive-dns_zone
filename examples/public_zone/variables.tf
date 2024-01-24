@@ -19,19 +19,7 @@ variable "resource_names_map" {
     region     = optional(string, "us-east-2")
   }))
 
-  default = {
-    dns_zone = {
-      name       = "zone"
-      max_length = 80
-      region     = "us-east-2"
-    }
-  }
-}
-
-variable "naming_prefix" {
-  description = "Prefix for the provisioned resources."
-  type        = string
-  default     = "demo"
+  default = {}
 }
 
 variable "environment" {
@@ -90,25 +78,30 @@ variable "logical_product_service" {
 }
 
 # DNS Zone specific variables
-variable "zone_name" {
-  description = "Name of the Route53 Zone to be created"
-  type        = string
+# Variables required by the dnz zone module
+variable "zones" {
+  description = "Map of Route53 zone parameters"
+  type = map(object({
+    domain_name   = string
+    comment       = string
+    force_destroy = optional(bool, false)
+    tags          = optional(map(string))
+    vpc = optional(list(object({
+      vpc_id     = optional(string)
+      vpc_region = optional(string)
+    })), [])
+  }))
+  default = {}
 }
 
-variable "comment" {
-  description = "Comment to be associated with the Route53 Zone"
-  type        = string
-  default     = ""
-}
-
-variable "force_destroy" {
-  description = "Boolean whether to be able to delete the DNS Zone"
+variable "create" {
+  description = "Whether to create Route53 zone"
   type        = bool
   default     = true
 }
 
 variable "tags" {
-  description = "A map of custom tags to be associated with the cache cluster"
+  description = "Tags added to all zones. Will take precedence over tags from the 'zones' variable"
   type        = map(string)
   default     = {}
 }
