@@ -40,12 +40,6 @@ variable "resource_number" {
   default     = "000"
 }
 
-variable "region" {
-  description = "AWS Region in which the infra needs to be provisioned"
-  type        = string
-  default     = "us-east-2"
-}
-
 variable "logical_product_family" {
   description = <<EOF
     (Required) Name of the product family for which the resource is created.
@@ -92,12 +86,6 @@ variable "zones" {
     })), [])
   }))
   default = {}
-}
-
-variable "create" {
-  description = "Whether to create Route53 zone"
-  type        = bool
-  default     = true
 }
 
 variable "tags" {
