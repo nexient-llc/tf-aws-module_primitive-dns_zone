@@ -13,7 +13,7 @@ locals {
   tags = {
     for k, v in var.zones : k => {
       tags = merge(v.tags, {
-        resource_name = "${module.resource_names["dns_zone_${k}"].standard}"
+        resource_name = module.resource_names["dns_zone_${k}"].standard
       })
     }
   }
