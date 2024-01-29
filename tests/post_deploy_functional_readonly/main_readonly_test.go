@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	testConfigDefault         = "../../examples/complete"
+	testConfigDefault         = "../../examples"
 	infraTFVarFileNameDefault = "test.tfvars"
 )
 
