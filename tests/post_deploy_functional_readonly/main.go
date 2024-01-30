@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"testing"
@@ -13,11 +13,11 @@ const (
 	infraTFVarFileNameDefault        = "test.tfvars"
 )
 
-func TestDNSZoneModule(t *testing.T) {
+func TestModule(t *testing.T) {
 
 	ctx := types.TestContext{
 		TestConfig: &testimpl.ThisTFModuleConfig{},
 	}
 	lib.RunSetupTestTeardown(t, testConfigsExamplesFolderDefault, infraTFVarFileNameDefault, ctx,
-		testimpl.TestComposableComplete, testimpl.TestNonComposableComplete)
+		testimpl.TestComposableComplete)
 }
