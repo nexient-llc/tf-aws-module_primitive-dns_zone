@@ -211,3 +211,5 @@ No resources.
 | <a name="output_route53_zone_names"></a> [route53\_zone\_names](#output\_route53\_zone\_names) | Names of Route53 zone |
 | <a name="output_route53_static_zone_names"></a> [route53\_static\_zone\_names](#output\_route53\_static\_zone\_names) | Names of Route53 zone created statically to avoid invalid count argument error when creating records and zones simmultaneously |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+DELETEME
