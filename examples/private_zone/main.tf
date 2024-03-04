@@ -30,12 +30,13 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.5.2"
 
-  name                 = var.vpc_name
-  cidr                 = var.vpc_cidr
-  private_subnets      = var.private_subnets
-  azs                  = var.availability_zones
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+  name                       = var.vpc_name
+  cidr                       = var.vpc_cidr
+  private_subnets            = var.private_subnets
+  azs                        = var.availability_zones
+  enable_dns_hostnames       = true
+  enable_dns_support         = true
+  manage_default_network_acl = false
 
   tags = var.tags
 }
