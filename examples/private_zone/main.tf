@@ -28,7 +28,7 @@ module "resource_names" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.5.1"
+  version = "~> 5.5.2"
 
   name                 = var.vpc_name
   cidr                 = var.vpc_cidr
@@ -45,4 +45,6 @@ module "dns_zone" {
 
   zones = local.zones
   tags  = var.tags
+
+  depends_on = [module.vpc]
 }
