@@ -10,14 +10,22 @@ import (
 )
 
 const (
-	testConfigDefault         = "../../examples"
-	infraTFVarFileNameDefault = "test.tfvars"
+	testConfigsExamplesFolderDefault = "../../examples"
+	infraTFVarFileNameDefault        = "test.tfvars"
 )
 
-func TestDNSZoneModule(t *testing.T) {
-	//to implement non destructive tests for this TF module first
-	ctx := types.TestContext{
-		TestConfig: &testimpl.ThisTFModuleConfig{},
-	}
-	lib.RunNonDestructiveTest(t, testConfigDefault, infraTFVarFileNameDefault, ctx, testimpl.TestComposableComplete)
+func TestDnsZoneModule(t *testing.T) {
+
+	ctx := types.CreateTestContextBuilder().
+		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
+		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
+		SetTestConfigFileName(infraTFVarFileNameDefault).
+		SetTestSpecificFlags(map[string]types.TestFlags{
+			"complete": {
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
+			},
+		}).
+		Build()
+
+	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestComposableComplete, testimpl.TestNonComposableComplete)
 }

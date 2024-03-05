@@ -28,7 +28,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | git::https://github.com/nexient-llc/tf-module-resource_name.git | 1.0.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 5.5.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 5.5.2 |
 | <a name="module_dns_zone"></a> [dns\_zone](#module\_dns\_zone) | ../.. | n/a |
 
 ## Resources
